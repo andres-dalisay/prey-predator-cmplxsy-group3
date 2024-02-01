@@ -1,13 +1,44 @@
+globals
+[
 
+]
+
+breed [sharks shark]
+breed [fishes fish]
+
+to setup
+  clear-all
+  ask patches
+  [
+    set pcolor blue
+  ]
+    set-default-shape fishes "fish"
+    set-default-shape sharks "shark"
+
+  create-fishes fish-pop
+  [
+    forward 10
+    set size 1
+    set color yellow
+  ]
+
+
+  create-sharks shark-pop
+  [
+    forward 3
+    set size 5
+    set color grey
+  ]
+end
 @#$#@#$#@
 GRAPHICS-WINDOW
-210
-10
-647
-448
+324
+15
+827
+519
 -1
 -1
-13.0
+7.62
 1
 10
 1
@@ -17,15 +48,62 @@ GRAPHICS-WINDOW
 1
 1
 1
--16
-16
--16
-16
+-32
+32
+-32
+32
 0
 0
 1
 ticks
 30.0
+
+BUTTON
+13
+65
+76
+98
+setup
+setup
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+SLIDER
+46
+144
+218
+177
+shark-pop
+shark-pop
+0
+100
+13.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+49
+197
+221
+230
+fish-pop
+fish-pop
+0
+100
+64.0
+1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
