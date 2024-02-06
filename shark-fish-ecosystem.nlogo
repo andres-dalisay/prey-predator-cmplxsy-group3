@@ -6,13 +6,11 @@ breed [fishes fish]
 fishes-own [
   energy
   food-eaten
+  reproduction-rate
 ]
 sharks-own[
-  fish-eaten
-]
-
-turtles-own[
   energy
+  fish-eaten
   reproduction-rate
 ]
 
@@ -43,9 +41,9 @@ to setup
   [
     set size 2
     set color orange
-    set energy fish-energy
+    set energy sharkMaxEnergy
     set food-eaten 0
-    set reproduction-rate fish-reproduction-rate
+    set reproduction-rate fishReproductionRate
     move-to one-of patches with [pcolor = blue]
   ]
 
@@ -54,9 +52,9 @@ to setup
   [
     set size 5
     set color grey
-    set energy shark-energy
+    set energy sharkMaxEnergy
     set fish-eaten 0
-    set reproduction-rate shark-reproduction-rate
+    set reproduction-rate sharkReproductionRate
     move-to one-of patches with [pcolor = blue]
   ]
 end
@@ -174,7 +172,7 @@ sharkReproductionRate
 sharkReproductionRate
 0
 100
-20.0
+0.0
 5
 1
 NIL
@@ -292,10 +290,10 @@ SLIDER
 346
 fishSpeed
 fishSpeed
-1
-100
-100.0
-1
+0.1
+3
+1.0
+0.1
 1
 NIL
 HORIZONTAL
@@ -395,10 +393,10 @@ NIL
 1
 
 SLIDER
-52
-496
-224
-529
+21
+624
+193
+657
 plankton-population
 plankton-population
 1
@@ -410,10 +408,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-52
-542
-225
-575
+207
+621
+380
+654
 plankton-regrowth-time
 plankton-regrowth-time
 0
@@ -423,7 +421,6 @@ plankton-regrowth-time
 1
 NIL
 HORIZONTAL
-
 
 @#$#@#$#@
 ## WHAT IS IT?
