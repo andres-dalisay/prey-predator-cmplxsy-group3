@@ -6,6 +6,11 @@ globals
 breed [sharks shark]
 breed [fishes fish]
 
+fishes-own [
+  energy
+  food-eaten
+]
+
 to setup
   clear-all
   ask patches
@@ -28,6 +33,19 @@ to setup
     forward 3
     set size 5
     set color grey
+  ]
+
+end
+
+to fishMove
+  if ticks mod 10 = 0 ; replace 10 with fishSpeed
+  [
+    ask fishes [
+      rt random 50
+      lt random 50
+      forward 1
+      set energy energy - 1 ; replace 1 with
+    ]
   ]
 end
 @#$#@#$#@
