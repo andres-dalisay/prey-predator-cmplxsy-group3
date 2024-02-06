@@ -1,40 +1,62 @@
-globals
-[
-
-]
+globals []
 
 breed [sharks shark]
 breed [fishes fish]
 
-fishes-own [
+patches-own [countdown]
+
+turtles-own[
   energy
+  reproduction-rate
+]
+
+fishes-own [
   food-eaten
+]
+
+sharks-own [
+  fish-eaten
 ]
 
 to setup
   clear-all
   reset-ticks
 
+  ; SEA & PLANKTON SETUP
   ask patches
   [
-    set pcolor blue
+    set pcolor one-of [ blue lime ]
+    ifelse pcolor = green [ set countdown planktonRegrowRate ] [ set countdown random planktonRegrowRate ]
   ]
+
+  ;  SET CUSTOM NUMBER OF PLANKTONS
+;  ask n-of plankton-population patches
+;  [
+;    set pcolor green
+;  ]
+
+  ;  FISHES AND SHARK SETUP
     set-default-shape fishes "fish"
     set-default-shape sharks "shark"
 
   create-fishes fishInitPopulation
   [
-    forward 10
-    set size 1
-    set color yellow
+    set size 2
+    set color orange
+    set energy fishMaxEnergy
+    set food-eaten 0
+    set reproduction-rate fishReproductionRate
+    move-to one-of patches with [pcolor = blue]
   ]
-
 
   create-sharks sharkInitPopulation
   [
-    forward 3
     set size 5
     set color grey
+    set energy sharkMaxEnergy
+    set fish-eaten 0
+    set reproduction-rate shark-reproduction
+    move-to one-of patches with [pcolor = blue]
   ]
 end
 
@@ -317,7 +339,7 @@ planktonRegrowRate
 planktonRegrowRate
 0
 100
-50.0
+100.0
 5
 1
 NIL
