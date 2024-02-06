@@ -40,18 +40,18 @@ end
 
 to go
   fishMove
+  tick
 end
 
 to fishMove
-  if ticks mod 10 = 0 ; replace 10 with fishSpeed
-  [
+
     ask fishes [
       rt random 50
       lt random 50
-      forward 1
+      forward fishSpeed
       set energy energy - 1 ; replace 1 with
     ]
-  ]
+
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -75,8 +75,8 @@ GRAPHICS-WINDOW
 32
 -32
 32
-0
-0
+1
+1
 1
 ticks
 30.0
@@ -152,7 +152,7 @@ shark-reproduction
 shark-reproduction
 0
 100
-50.0
+20.0
 5
 1
 NIL
@@ -257,7 +257,7 @@ fishMaxEnergy
 fishMaxEnergy
 0
 500
-100.0
+103.0
 1
 1
 NIL
@@ -270,9 +270,9 @@ SLIDER
 346
 fishSpeed
 fishSpeed
-0
-50
-5.0
+1
+100
+100.0
 1
 1
 NIL
@@ -313,8 +313,8 @@ SLIDER
 101
 373
 134
-planktonRegorwRate
-planktonRegorwRate
+planktonRegrowRate
+planktonRegrowRate
 0
 100
 50.0
@@ -332,7 +332,7 @@ planktonInitPopulation
 planktonInitPopulation
 0
 100
-50.0
+52.0
 1
 1
 NIL
