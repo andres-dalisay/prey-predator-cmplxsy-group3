@@ -25,7 +25,7 @@ to setup
   ; SEA & PLANKTON SETUP
   ask patches
   [
-    set pcolor one-of [ blue lime ]
+    set pcolor one-of [ blue green ]
     ifelse pcolor = green [ set countdown planktonRegrowRate ] [ set countdown random planktonRegrowRate ]
   ]
 
@@ -49,31 +49,47 @@ to setup
     move-to one-of patches with [pcolor = blue]
   ]
 
-  create-sharks sharkInitPopulation
-  [
-    set size 5
-    set color grey
-    set energy sharkMaxEnergy
-    set fish-eaten 0
-    set reproduction-rate shark-reproduction
-    move-to one-of patches with [pcolor = blue]
-  ]
+;  create-sharks sharkInitPopulation
+;  [
+;    set size 5
+;    set color grey
+;    set energy sharkMaxEnergy
+;    set fish-eaten 0
+;    set reproduction-rate shark-reproduction
+;    move-to one-of patches with [pcolor = blue]
+;  ]
 end
 
 to go
   fishMove
+
+  ask patches [ grow-plankton ]
+
   tick
 end
 
 to fishMove
-
     ask fishes [
       rt random 50
       lt random 50
       forward fishSpeed
       set energy energy - 1 ; replace 1 with
+      if pcolor = green [
+         set pcolor blue
+         set energy energy + 5;
+      ]
     ]
+end
 
+to grow-plankton
+  if pcolor = blue [
+    ifelse countdown <= 0
+    [
+      set pcolor green
+      set countdown planktonRegrowRate
+    ]
+    [ set countdown countdown - 1 ]
+  ]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -159,7 +175,7 @@ fishReproductionRate
 fishReproductionRate
 0
 100
-50.0
+40.0
 5
 1
 NIL
