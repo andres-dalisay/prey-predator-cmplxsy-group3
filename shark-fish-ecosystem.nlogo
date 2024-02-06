@@ -1,34 +1,68 @@
-globals
-[
-
-]
+globals[max-fishes]   ; nerf the fishes
 
 breed [sharks shark]
 breed [fishes fish]
 
+turtles-own[
+  energy
+  reproduction-rate
+]
+
+patches-own [ countdown ]
+
+fishes-own[
+  food-eaten
+]
+
+sharks-own[
+  fish-eaten
+]
+
 to setup
   clear-all
+;  SEA & PLANKTON SETUP
   ask patches
   [
-    set pcolor blue
+    set pcolor one-of [ blue lime ]
+    ifelse pcolor = green [ set countdown plankton-regrowth-time ] [ set countdown random plankton-regrowth-time ]
   ]
+
+
+;  SET CUSTOM NUMBER OF PLANKTONS
+;  ask n-of plankton-population patches
+;  [
+;    set pcolor green
+;  ]
+
+;  FISHES AND SHARK SETUP
     set-default-shape fishes "fish"
     set-default-shape sharks "shark"
 
   create-fishes fish-pop
   [
-    forward 10
-    set size 1
-    set color yellow
+    set size 2
+    set color orange
+    set energy fish-energy
+    set food-eaten 0
+    set reproduction-rate fish-reproduction-rate
+    move-to one-of patches with [pcolor = blue]
   ]
-
 
   create-sharks shark-pop
   [
-    forward 3
     set size 5
     set color grey
+    set energy shark-energy
+    set fish-eaten 0
+    set reproduction-rate shark-reproduction-rate
+    move-to one-of patches with [pcolor = blue]
   ]
+
+  reset-ticks
+end
+
+to go
+
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -84,7 +118,7 @@ shark-pop
 shark-pop
 0
 100
-13.0
+25.0
 1
 1
 NIL
@@ -99,11 +133,118 @@ fish-pop
 fish-pop
 0
 100
-64.0
+50.0
 1
 1
 NIL
 HORIZONTAL
+
+SLIDER
+47
+271
+219
+304
+fish-energy
+fish-energy
+5
+50
+10.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+48
+350
+220
+383
+fish-reproduction-rate
+fish-reproduction-rate
+0
+1
+0.4
+.2
+1
+NIL
+HORIZONTAL
+
+SLIDER
+56
+397
+228
+430
+shark-energy
+shark-energy
+5
+100
+30.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+61
+445
+235
+478
+shark-reproduction-rate
+shark-reproduction-rate
+0
+1
+0.4
+.2
+1
+NIL
+HORIZONTAL
+
+SLIDER
+52
+496
+224
+529
+plankton-population
+plankton-population
+1
+100
+10.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+52
+542
+225
+575
+plankton-regrowth-time
+plankton-regrowth-time
+0
+100
+30.0
+1
+1
+NIL
+HORIZONTAL
+
+BUTTON
+140
+75
+203
+108
+NIL
+go
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
