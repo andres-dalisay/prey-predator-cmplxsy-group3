@@ -1,7 +1,4 @@
-globals
-[
-
-]
+globals[max-fishes]   ; nerf the fishes
 
 breed [sharks shark]
 breed [fishes fish]
@@ -10,31 +7,57 @@ fishes-own [
   energy
   food-eaten
 ]
+sharks-own[
+  fish-eaten
+]
+
+turtles-own[
+  energy
+  reproduction-rate
+]
+
+patches-own [ countdown ]
 
 to setup
   clear-all
   reset-ticks
-
+;  SEA & PLANKTON SETUP
   ask patches
   [
-    set pcolor blue
+    set pcolor one-of [ blue lime ]
+    ifelse pcolor = green [ set countdown plankton-regrowth-time ] [ set countdown random plankton-regrowth-time ]
   ]
+
+
+;  SET CUSTOM NUMBER OF PLANKTONS
+;  ask n-of plankton-population patches
+;  [
+;    set pcolor green
+;  ]
+
+;  FISHES AND SHARK SETUP
     set-default-shape fishes "fish"
     set-default-shape sharks "shark"
 
   create-fishes fishInitPopulation
   [
-    forward 10
-    set size 1
-    set color yellow
+    set size 2
+    set color orange
+    set energy fish-energy
+    set food-eaten 0
+    set reproduction-rate fish-reproduction-rate
+    move-to one-of patches with [pcolor = blue]
   ]
 
 
   create-sharks sharkInitPopulation
   [
-    forward 3
     set size 5
     set color grey
+    set energy shark-energy
+    set fish-eaten 0
+    set reproduction-rate shark-reproduction-rate
+    move-to one-of patches with [pcolor = blue]
   ]
 end
 
@@ -44,7 +67,6 @@ to go
 end
 
 to fishMove
-
     ask fishes [
       rt random 50
       lt random 50
@@ -107,7 +129,7 @@ sharkInitPopulation
 sharkInitPopulation
 0
 100
-13.0
+25.0
 1
 1
 NIL
@@ -122,7 +144,7 @@ fishInitPopulation
 fishInitPopulation
 0
 100
-64.0
+50.0
 1
 1
 NIL
@@ -148,8 +170,8 @@ SLIDER
 384
 377
 417
-shark-reproduction
-shark-reproduction
+sharkReproductionRate
+sharkReproductionRate
 0
 100
 20.0
@@ -178,8 +200,8 @@ SLIDER
 441
 188
 474
-shark-moveCost
-shark-moveCost
+sharkMovementCost
+sharkMovementCost
 0
 10
 1.0
@@ -208,8 +230,8 @@ SLIDER
 442
 378
 475
-shark-energyPerFood
-shark-energyPerFood
+sharkEnergyPerFood
+sharkEnergyPerFood
 0
 10
 2.0
@@ -371,6 +393,37 @@ NIL
 NIL
 NIL
 1
+
+SLIDER
+52
+496
+224
+529
+plankton-population
+plankton-population
+1
+100
+10.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+52
+542
+225
+575
+plankton-regrowth-time
+plankton-regrowth-time
+0
+100
+30.0
+1
+1
+NIL
+HORIZONTAL
+
 
 @#$#@#$#@
 ## WHAT IS IT?
