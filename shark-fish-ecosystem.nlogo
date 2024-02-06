@@ -13,6 +13,7 @@ fishes-own [
 
 to setup
   clear-all
+  reset-ticks
   ask patches
   [
     set pcolor blue
@@ -35,6 +36,10 @@ to setup
     set color grey
   ]
 
+end
+
+to go
+  fishMove
 end
 
 to fishMove
@@ -122,6 +127,40 @@ fish-pop
 1
 NIL
 HORIZONTAL
+
+BUTTON
+94
+63
+167
+96
+go once
+go
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+231
+57
+294
+90
+go
+go
+T
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
