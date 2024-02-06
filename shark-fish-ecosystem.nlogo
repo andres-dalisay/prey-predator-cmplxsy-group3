@@ -6,8 +6,14 @@ globals
 breed [sharks shark]
 breed [fishes fish]
 
+fishes-own [
+  energy
+  food-eaten
+]
+
 to setup
   clear-all
+  reset-ticks
   ask patches
   [
     set pcolor blue
@@ -28,6 +34,23 @@ to setup
     forward 3
     set size 5
     set color grey
+  ]
+
+end
+
+to go
+  fishMove
+end
+
+to fishMove
+  if ticks mod 10 = 0 ; replace 10 with fishSpeed
+  [
+    ask fishes [
+      rt random 50
+      lt random 50
+      forward 1
+      set energy energy - 1 ; replace 1 with
+    ]
   ]
 end
 @#$#@#$#@
@@ -104,6 +127,40 @@ fish-pop
 1
 NIL
 HORIZONTAL
+
+BUTTON
+94
+63
+167
+96
+go once
+go
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+231
+57
+294
+90
+go
+go
+T
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
