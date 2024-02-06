@@ -6,14 +6,8 @@ globals
 breed [sharks shark]
 breed [fishes fish]
 
-fishes-own [
-  energy
-  food-eaten
-]
-
 to setup
   clear-all
-  reset-ticks
   ask patches
   [
     set pcolor blue
@@ -21,7 +15,7 @@ to setup
     set-default-shape fishes "fish"
     set-default-shape sharks "shark"
 
-  create-fishes fish-pop
+  create-fishes fishInitPopulation
   [
     forward 10
     set size 1
@@ -29,36 +23,19 @@ to setup
   ]
 
 
-  create-sharks shark-pop
+  create-sharks sharkInitPopulation
   [
     forward 3
     set size 5
     set color grey
   ]
-
-end
-
-to go
-  fishMove
-end
-
-to fishMove
-  if ticks mod 10 = 0 ; replace 10 with fishSpeed
-  [
-    ask fishes [
-      rt random 50
-      lt random 50
-      forward 1
-      set energy energy - 1 ; replace 1 with
-    ]
-  ]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-324
-15
-827
-519
+416
+98
+919
+602
 -1
 -1
 7.62
@@ -82,10 +59,10 @@ ticks
 30.0
 
 BUTTON
-13
-65
-76
-98
+17
+19
+80
+52
 setup
 setup
 NIL
@@ -99,12 +76,12 @@ NIL
 1
 
 SLIDER
-46
-144
-218
-177
-shark-pop
-shark-pop
+17
+385
+189
+418
+sharkInitPopulation
+sharkInitPopulation
 0
 100
 13.0
@@ -114,12 +91,12 @@ NIL
 HORIZONTAL
 
 SLIDER
-49
-197
-221
-230
-fish-pop
-fish-pop
+13
+168
+185
+201
+fishInitPopulation
+fishInitPopulation
 0
 100
 64.0
@@ -128,39 +105,215 @@ fish-pop
 NIL
 HORIZONTAL
 
-BUTTON
-94
-63
-167
-96
-go once
-go
-NIL
+SLIDER
+204
+169
+376
+202
+fishReproductionRate
+fishReproductionRate
+0
+100
+50.0
+5
 1
-T
-OBSERVER
 NIL
-NIL
-NIL
-NIL
-1
+HORIZONTAL
 
-BUTTON
-231
-57
-294
-90
-go
-go
-T
+SLIDER
+205
+384
+377
+417
+shark-reproduction
+shark-reproduction
+0
+100
+50.0
+5
 1
-T
-OBSERVER
 NIL
-NIL
-NIL
-NIL
+HORIZONTAL
+
+SLIDER
+12
+213
+184
+246
+fishMovementCost
+fishMovementCost
+0
+10
+1.0
 1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+16
+441
+188
+474
+shark-moveCost
+shark-moveCost
+0
+10
+1.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+203
+213
+375
+246
+fishEnergyPerFood
+fishEnergyPerFood
+0
+10
+2.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+206
+442
+378
+475
+shark-energyPerFood
+shark-energyPerFood
+0
+10
+2.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+12
+265
+184
+298
+fishOffspringCount
+fishOffspringCount
+0
+5
+5.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+15
+494
+187
+527
+shark-offspringCount
+shark-offspringCount
+0
+100
+50.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+205
+265
+377
+298
+fishMaxEnergy
+fishMaxEnergy
+0
+500
+100.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+14
+313
+186
+346
+fishSpeed
+fishSpeed
+0
+50
+5.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+207
+496
+379
+529
+sharkMaxEnergy
+sharkMaxEnergy
+0
+500
+100.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+15
+549
+187
+582
+sharkSpeed
+sharkSpeed
+0
+50
+3.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+201
+101
+373
+134
+planktonRegorwRate
+planktonRegorwRate
+0
+100
+50.0
+5
+1
+NIL
+HORIZONTAL
+
+SLIDER
+13
+102
+186
+135
+planktonInitPopulation
+planktonInitPopulation
+0
+100
+50.0
+1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
