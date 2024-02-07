@@ -71,11 +71,16 @@ to fishMove
       lt random 50
       forward fishSpeed
       set energy energy - 1 ; replace 1 with
-      if pcolor = green [
-         set pcolor blue
-         set energy energy + 5;
-      ]
+      fishEat
     ]
+
+end
+
+to fishEat
+  if pcolor = green [
+    set pcolor blue
+    set energy energy + fishEnergyPerFood
+  ]
 
 end
 
@@ -233,7 +238,7 @@ fishEnergyPerFood
 fishEnergyPerFood
 0
 10
-2.0
+6.0
 1
 1
 NIL
@@ -353,7 +358,7 @@ planktonRegrowRate
 planktonRegrowRate
 0
 100
-0.0
+60.0
 5
 1
 NIL
