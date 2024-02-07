@@ -93,7 +93,7 @@ end
 to fishReproduce ;; fixed probability of producing new offspring; offspring amount is dependent on slider
   if random-float 100 < fishReproductionRate [
     hatch fishOffspringCount [ rt random-float 360 fd 1] ; after hatching new offspring, new fish will spawn 1 step forward of the parent fish at a random direction
-  ] ;test comment
+  ]
 end
 
 to grow-plankton
