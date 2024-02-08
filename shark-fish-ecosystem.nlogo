@@ -186,7 +186,7 @@ sharkInitPopulation
 sharkInitPopulation
 0
 100
-10.0
+36.0
 1
 1
 NIL
@@ -201,7 +201,7 @@ fishInitPopulation
 fishInitPopulation
 0
 100
-10.0
+97.0
 1
 1
 NIL
@@ -351,7 +351,7 @@ fishSpeed
 fishSpeed
 0.1
 3
-0.7
+2.2
 0.1
 1
 NIL
@@ -379,10 +379,10 @@ SLIDER
 406
 sharkSpeed
 sharkSpeed
-0
-50
-10.0
-1
+0.1
+3
+2.6
+0.1
 1
 NIL
 HORIZONTAL
@@ -480,6 +480,25 @@ plankton-regrowth-time
 1
 NIL
 HORIZONTAL
+
+PLOT
+82
+438
+282
+588
+population
+time
+pop.
+0.0
+100.0
+0.0
+100.0
+true
+false
+"" ""
+PENS
+"fish" 1.0 0 -955883 true "" "plot count fishes"
+"sharks" 1.0 0 -7500403 true "" "plot count sharks"
 
 @#$#@#$#@
 ## WHAT IS IT?
