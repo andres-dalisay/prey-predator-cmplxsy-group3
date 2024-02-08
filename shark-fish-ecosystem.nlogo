@@ -71,7 +71,7 @@ to fishMove
       rt random 50
       lt random 50
       forward fishSpeed
-      set energy energy - 1 ; replace 1 with
+      set energy energy - fishMovementCost
       fishEat
       fishDie ; checks if fish will die or not
       fishReproduce ; ; chance for fish to produce offspring
@@ -88,7 +88,7 @@ to fishEat
 end
 
 to fishDie ;; if fish energy reaches zero, they die
-  if energy = 0 [ die ]
+  if energy <= 0 [ die ]
 end
 
 to fishReproduce ;; fixed probability of producing new offspring; offspring amount is dependent on slider
@@ -246,7 +246,7 @@ fishMovementCost
 fishMovementCost
 0
 10
-1.0
+10.0
 1
 1
 NIL
