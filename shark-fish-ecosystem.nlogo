@@ -7,6 +7,8 @@ fishes-own [
   energy
   food-eaten
   reproduction-rate
+  flockmates
+  nearest-neighbor
 ]
 sharks-own[
   energy
@@ -60,23 +62,98 @@ to setup
 end
 
 to go
-  fishMove
+  ask fishes [
+    fishMove
+  ]
   sharkMove
   ask patches [ grow-plankton ]
   tick
 end
 
 to fishMove
-    ask fishes [
-      rt random 50
-      lt random 50
-      forward fishSpeed
-      set energy energy - fishMovementCost
-      fishEat
-      fishDie ; checks if fish will die or not
-      fishReproduce ; ; chance for fish to produce offspring
-    ]
 
+  find-flockmates
+  if any? flockmates
+    [ find-nearest-neighbor
+      ifelse distance nearest-neighbor < 1 ; minimum-separation
+        [ separate ]
+        [ align
+          cohere ] ]
+
+  ;rt random 50
+  ;lt random 50
+  forward fishSpeed
+  set energy energy - fishMovementCost
+  fishEat
+  fishDie ; checks if fish will die or not
+  fishReproduce ; ; chance for fish to produce offspring
+
+end
+
+to find-flockmates  ;; turtle procedure
+  set flockmates other turtles in-radius 5 ; vision
+end
+
+to find-nearest-neighbor ;; turtle procedure
+  set nearest-neighbor min-one-of flockmates [distance myself]
+end
+
+to separate  ;; turtle procedure
+  turn-away ([heading] of nearest-neighbor) 1.5 ; max-separate-turn
+end
+
+;;; ALIGN
+
+to align  ;; turtle procedure
+  turn-towards average-flockmate-heading 5 ; max-align-turn
+end
+
+to-report average-flockmate-heading  ;; turtle procedure
+  ;; We can't just average the heading variables here.
+  ;; For example, the average of 1 and 359 should be 0,
+  ;; not 180.  So we have to use trigonometry.
+  let x-component sum [dx] of flockmates
+  let y-component sum [dy] of flockmates
+  ifelse x-component = 0 and y-component = 0
+    [ report heading ]
+    [ report atan x-component y-component ]
+end
+
+;;; COHERE
+
+to cohere  ;; turtle procedure
+  turn-towards average-heading-towards-flockmates 3 ; max-cohere-turn
+end
+
+to-report average-heading-towards-flockmates  ;; turtle procedure
+  ;; "towards myself" gives us the heading from the other turtle
+  ;; to me, but we want the heading from me to the other turtle,
+  ;; so we add 180
+  let x-component mean [sin (towards myself + 180)] of flockmates
+  let y-component mean [cos (towards myself + 180)] of flockmates
+  ifelse x-component = 0 and y-component = 0
+    [ report heading ]
+    [ report atan x-component y-component ]
+end
+
+;;; HELPER PROCEDURES
+
+to turn-towards [new-heading max-turn]  ;; turtle procedure
+  turn-at-most (subtract-headings new-heading heading) max-turn
+end
+
+to turn-away [new-heading max-turn]  ;; turtle procedure
+  turn-at-most (subtract-headings heading new-heading) max-turn
+end
+
+;; turn right by "turn" degrees (or left if "turn" is negative),
+;; but never turn more than "max-turn" degrees
+to turn-at-most [turn max-turn]  ;; turtle procedure
+  ifelse abs turn > max-turn
+    [ ifelse turn > 0
+        [ rt max-turn ]
+        [ lt max-turn ] ]
+    [ rt turn ]
 end
 
 to fishEat
@@ -186,7 +263,7 @@ sharkInitPopulation
 sharkInitPopulation
 0
 100
-36.0
+0.0
 1
 1
 NIL
@@ -201,7 +278,7 @@ fishInitPopulation
 fishInitPopulation
 0
 100
-1.0
+100.0
 1
 1
 NIL
@@ -246,7 +323,7 @@ fishMovementCost
 fishMovementCost
 0
 10
-2.0
+1.0
 1
 1
 NIL
