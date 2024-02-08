@@ -61,6 +61,7 @@ end
 
 to go
   fishMove
+  sharkMove
   ask patches [ grow-plankton ]
   tick
 end
@@ -95,6 +96,31 @@ to fishReproduce ;; fixed probability of producing new offspring; offspring amou
     hatch fishOffspringCount [ rt random-float 360 fd 1] ; after hatching new offspring, new fish will spawn 1 step forward of the parent fish at a random direction
   ]
 end
+
+to sharkMove
+    ask sharks [
+      rt random 50
+      lt random 50
+      forward sharkSpeed
+      set energy energy - 1 ; replace 1 with
+;      sharkEat
+      sharkDie ; checks if shark will die or not
+    ]
+
+end
+
+;to sharkEat
+;  if any? fish-here [
+;    FISH AGENT DIES
+;    set energy energy + fishEnergyPerFood   ; Shark regain energy
+;  ]
+;
+;end
+
+to sharkDie ;; if shark energy reaches zero, they die
+  if energy = 0 [ die ]
+end
+
 
 to grow-plankton
   if pcolor = blue [
@@ -153,9 +179,9 @@ NIL
 
 SLIDER
 42
-97
+99
 214
-130
+132
 sharkInitPopulation
 sharkInitPopulation
 0
