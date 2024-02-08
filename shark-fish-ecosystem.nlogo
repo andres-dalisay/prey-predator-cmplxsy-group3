@@ -102,7 +102,7 @@ to sharkMove
       rt random 50
       lt random 50
       forward sharkSpeed
-      set energy energy - 1 ; replace 1 with
+      set energy energy - sharkMovementCost ; replace 1 with
 ;      sharkEat
       sharkDie ; checks if shark will die or not
     ]
@@ -246,7 +246,7 @@ fishMovementCost
 fishMovementCost
 0
 10
-10.0
+2.0
 1
 1
 NIL
