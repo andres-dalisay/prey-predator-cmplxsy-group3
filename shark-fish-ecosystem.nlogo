@@ -23,7 +23,7 @@ to setup
   ask patches
   [
     set pcolor one-of [ blue green ]
-    ifelse pcolor = green [ set countdown plankton-regrowth-time ] [ set countdown random plankton-regrowth-time ]
+    ifelse pcolor = green [ set countdown 0 ] [ set countdown random planktonRegrowRate ]
   ]
 
 
@@ -325,7 +325,7 @@ fishSpeed
 fishSpeed
 0.1
 3
-1.0
+0.7
 0.1
 1
 NIL
@@ -370,7 +370,7 @@ planktonRegrowRate
 planktonRegrowRate
 0
 100
-0.0
+100.0
 5
 1
 NIL
