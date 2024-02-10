@@ -180,21 +180,31 @@ to sharkMove
       lt random 50
       forward sharkSpeed
       set energy energy - sharkMovementCost ; replace 1 with
-;      sharkEat
+    set label energy
+      sharkEat
       sharkDie ; checks if shark will die or not
+    sharkReproduce
     ]
 
 end
 
-;to sharkEat
-;  if any? fish-here [
-;    FISH AGENT DIES
-;    set energy energy + fishEnergyPerFood   ; Shark regain energy
-;  ]
-;
-;end
+to sharkEat
+  let prey one-of other fishes-here
+  if prey != nobody [
 
-to sharkDie ;; if shark energy reaches zero, they die
+    set energy energy + sharkEnergyPerFood
+
+    ask prey [ die ]
+  ]
+end
+
+to sharkReproduce
+  if random-float 100 < sharkReproductionRate [
+    hatch sharkOffspringCount [ rt random-float 360 fd 1] ; after hatching new offspring, new fish will spawn 1 step forward of the parent fish at a random direction
+  ]
+end
+
+to sharkDie
   if energy = 0 [ die ]
 end
 
@@ -263,7 +273,7 @@ sharkInitPopulation
 sharkInitPopulation
 0
 100
-0.0
+100.0
 1
 1
 NIL
@@ -293,8 +303,8 @@ fishReproductionRate
 fishReproductionRate
 0
 100
-10.0
-5
+3.0
+1
 1
 NIL
 HORIZONTAL
@@ -308,8 +318,8 @@ sharkReproductionRate
 sharkReproductionRate
 0
 100
-10.0
-5
+1.0
+1
 1
 NIL
 HORIZONTAL
@@ -353,7 +363,7 @@ fishEnergyPerFood
 fishEnergyPerFood
 0
 10
-1.0
+3.0
 1
 1
 NIL
@@ -367,8 +377,8 @@ SLIDER
 sharkEnergyPerFood
 sharkEnergyPerFood
 0
-10
-1.0
+20
+10.0
 1
 1
 NIL
@@ -383,7 +393,7 @@ fishOffspringCount
 fishOffspringCount
 0
 5
-0.0
+1.0
 1
 1
 NIL
@@ -394,11 +404,11 @@ SLIDER
 329
 212
 362
-shark-offspringCount
-shark-offspringCount
+sharkOffspringCount
+sharkOffspringCount
 0
 100
-1.0
+4.0
 1
 1
 NIL
@@ -413,7 +423,7 @@ fishMaxEnergy
 fishMaxEnergy
 0
 500
-100.0
+500.0
 1
 1
 NIL
@@ -428,7 +438,7 @@ fishSpeed
 fishSpeed
 0.1
 3
-2.2
+1.2
 0.1
 1
 NIL
@@ -443,7 +453,7 @@ sharkMaxEnergy
 sharkMaxEnergy
 0
 500
-100.0
+45.0
 1
 1
 NIL
@@ -458,7 +468,7 @@ sharkSpeed
 sharkSpeed
 0.1
 3
-2.6
+1.5
 0.1
 1
 NIL
@@ -473,7 +483,7 @@ planktonRegrowRate
 planktonRegrowRate
 0
 100
-100.0
+55.0
 5
 1
 NIL
@@ -488,7 +498,7 @@ planktonInitPopulation
 planktonInitPopulation
 0
 100
-0.0
+100.0
 1
 1
 NIL
