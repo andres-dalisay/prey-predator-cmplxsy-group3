@@ -151,7 +151,7 @@ to turn-at-most [turn max-turn]  ;; turtle procedure
 end
 
 to fishEat
-  if pcolor = green [
+  if pcolor = green and energy < fishMaxEnergy [
     set pcolor blue
     set energy energy + fishEnergyPerFood
     set food-eaten food-eaten + 1
@@ -186,7 +186,7 @@ end
 
 to sharkEat
   let prey one-of other fishes-here
-  if prey != nobody [
+  if prey != nobody and energy < sharkMaxEnergy [
     ask prey [ die ]
     set energy energy + sharkEnergyPerFood
     set fish-eaten fish-eaten + 1
@@ -299,7 +299,7 @@ fishReproductionRate
 fishReproductionRate
 0
 50
-5.0
+24.0
 1
 1
 %
@@ -359,7 +359,7 @@ fishEnergyPerFood
 fishEnergyPerFood
 0
 20
-2.0
+8.0
 1
 1
 NIL
@@ -374,7 +374,7 @@ sharkEnergyPerFood
 sharkEnergyPerFood
 1
 50
-23.0
+15.0
 1
 1
 NIL
@@ -419,7 +419,7 @@ fishMaxEnergy
 fishMaxEnergy
 1
 50
-20.0
+25.0
 1
 1
 NIL
@@ -449,7 +449,7 @@ sharkMaxEnergy
 sharkMaxEnergy
 1
 50
-25.0
+50.0
 1
 1
 NIL
@@ -552,14 +552,37 @@ false
 PENS
 "fish" 1.0 0 -955883 true "" "plot count fishes"
 "sharks" 1.0 0 -7500403 true "" "plot count sharks"
+"plankton" 1.0 0 -13840069 true "" "plot count patches with [pcolor = green]"
 
 MONITOR
 271
 424
-399
+375
 473
-plankton population
+plankton pop.
 count patches with [pcolor = green]
+1
+1
+12
+
+MONITOR
+269
+481
+370
+530
+shark pop.
+count sharks
+1
+1
+12
+
+MONITOR
+272
+538
+372
+587
+fish pop.
+count fishes
 1
 1
 12
