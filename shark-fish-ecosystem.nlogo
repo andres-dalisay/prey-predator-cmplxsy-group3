@@ -1,5 +1,3 @@
-globals[max-fishes]   ; nerf the fishes
-
 breed [sharks shark]
 breed [fishes fish]
 
@@ -27,13 +25,6 @@ to setup
     set pcolor one-of [ blue green ]
     ifelse pcolor = green [ set countdown planktonRegrowRate ] [ set countdown random planktonRegrowRate ]
   ]
-
-
-;  SET CUSTOM NUMBER OF PLANKTONS
-;  ask n-of plankton-population patches
-;  [
-;    set pcolor green
-;  ]
 
 ;  FISHES AND SHARK SETUP
     set-default-shape fishes "fish"
