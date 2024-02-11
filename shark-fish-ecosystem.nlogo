@@ -25,7 +25,7 @@ to setup
   ask patches
   [
     set pcolor one-of [ blue green ]
-    ifelse pcolor = green [ set countdown 0 ] [ set countdown random planktonRegrowRate ]
+    ifelse pcolor = green [ set countdown planktonRegrowRate ] [ set countdown random planktonRegrowRate ]
   ]
 
 
@@ -43,7 +43,8 @@ to setup
   [
     set size 2
     set color orange
-    set energy sharkMaxEnergy
+    ;;set energy fishMaxEnergy
+    set energy random (2 * fishEnergyPerFood)
     set food-eaten 0
     set reproduction-rate fishReproductionRate
     move-to one-of patches with [pcolor = blue]
@@ -54,7 +55,8 @@ to setup
   [
     set size 5
     set color grey
-    set energy sharkMaxEnergy
+    ;; set energy sharkMaxEnergy
+    set energy random (2 * sharkEnergyPerFood)
     set fish-eaten 0
     set reproduction-rate sharkReproductionRate
     move-to one-of patches with [pcolor = blue]
@@ -85,6 +87,7 @@ to fishMove
   forward fishSpeed
   set energy energy - fishMovementCost
   fishEat
+  set label energy
   fishDie ; checks if fish will die or not
   fishReproduce ; ; chance for fish to produce offspring
 
@@ -160,6 +163,7 @@ to fishEat
   if pcolor = green [
     set pcolor blue
     set energy energy + fishEnergyPerFood
+    set food-eaten food-eaten + 1
   ]
 
 end
@@ -170,6 +174,7 @@ end
 
 to fishReproduce ;; fixed probability of producing new offspring; offspring amount is dependent on slider
   if random-float 100 < fishReproductionRate [
+    set energy round (energy / fishOffspringCount)
     hatch fishOffspringCount [ rt random-float 360 fd 1] ; after hatching new offspring, new fish will spawn 1 step forward of the parent fish at a random direction
   ]
 end
@@ -191,21 +196,21 @@ end
 to sharkEat
   let prey one-of other fishes-here
   if prey != nobody [
-
-    set energy energy + sharkEnergyPerFood
-
     ask prey [ die ]
+    set energy energy + sharkEnergyPerFood
+    set fish-eaten fish-eaten + 1
   ]
 end
 
 to sharkReproduce
   if random-float 100 < sharkReproductionRate [
+    set energy round (energy / sharkOffspringCount)
     hatch sharkOffspringCount [ rt random-float 360 fd 1] ; after hatching new offspring, new fish will spawn 1 step forward of the parent fish at a random direction
   ]
 end
 
 to sharkDie
-  if energy = 0 [ die ]
+  if energy <= 0 [ die ]
 end
 
 
@@ -223,11 +228,11 @@ end
 GRAPHICS-WINDOW
 416
 98
-919
-602
+813
+496
 -1
 -1
-7.62
+9.5
 1
 10
 1
@@ -237,10 +242,10 @@ GRAPHICS-WINDOW
 1
 1
 1
--32
-32
--32
-32
+-20
+20
+-20
+20
 1
 1
 1
@@ -273,7 +278,7 @@ sharkInitPopulation
 sharkInitPopulation
 0
 100
-100.0
+50.0
 1
 1
 NIL
@@ -296,32 +301,32 @@ HORIZONTAL
 
 SLIDER
 232
-188
-404
-221
+191
+412
+224
 fishReproductionRate
 fishReproductionRate
 0
-100
-3.0
+50
+5.0
 1
 1
-NIL
+%
 HORIZONTAL
 
 SLIDER
 40
 187
-212
+219
 220
 sharkReproductionRate
 sharkReproductionRate
 0
-100
-1.0
+50
+7.0
 1
 1
-NIL
+%
 HORIZONTAL
 
 SLIDER
@@ -362,8 +367,8 @@ SLIDER
 fishEnergyPerFood
 fishEnergyPerFood
 0
-10
-3.0
+20
+2.0
 1
 1
 NIL
@@ -372,13 +377,13 @@ HORIZONTAL
 SLIDER
 40
 233
-212
+220
 266
 sharkEnergyPerFood
 sharkEnergyPerFood
-0
-20
-10.0
+1
+50
+23.0
 1
 1
 NIL
@@ -393,7 +398,7 @@ fishOffspringCount
 fishOffspringCount
 0
 5
-1.0
+4.0
 1
 1
 NIL
@@ -407,8 +412,8 @@ SLIDER
 sharkOffspringCount
 sharkOffspringCount
 0
-100
-4.0
+4
+2.0
 1
 1
 NIL
@@ -421,9 +426,9 @@ SLIDER
 314
 fishMaxEnergy
 fishMaxEnergy
-0
-500
-500.0
+1
+50
+25.0
 1
 1
 NIL
@@ -438,7 +443,7 @@ fishSpeed
 fishSpeed
 0.1
 3
-1.2
+1.0
 0.1
 1
 NIL
@@ -451,9 +456,9 @@ SLIDER
 313
 sharkMaxEnergy
 sharkMaxEnergy
-0
-500
-45.0
+1
+50
+25.0
 1
 1
 NIL
@@ -468,7 +473,7 @@ sharkSpeed
 sharkSpeed
 0.1
 3
-1.5
+1.0
 0.1
 1
 NIL
@@ -483,7 +488,7 @@ planktonRegrowRate
 planktonRegrowRate
 0
 100
-55.0
+30.0
 5
 1
 NIL
