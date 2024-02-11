@@ -166,7 +166,7 @@ end
 to fishReproduce ;; fixed probability of producing new offspring; offspring amount is dependent on slider
   if random-float 100 < fishReproductionRate [
     set energy round (energy / fishOffspringCount)
-    hatch fishOffspringCount [ rt random-float 360 fd 1] ; after hatching new offspring, new fish will spawn 1 step forward of the parent fish at a random direction
+    hatch random fishOffspringCount [ rt random-float 360 fd 1] ; after hatching new offspring, new fish will spawn 1 step forward of the parent fish at a random direction
   ]
 end
 
@@ -196,7 +196,7 @@ end
 to sharkReproduce
   if random-float 100 < sharkReproductionRate [
     set energy round (energy / sharkOffspringCount)
-    hatch sharkOffspringCount [ rt random-float 360 fd 1] ; after hatching new offspring, new fish will spawn 1 step forward of the parent fish at a random direction
+    hatch random sharkOffspringCount [ rt random-float 360 fd 1] ; after hatching new offspring, new fish will spawn 1 step forward of the parent fish at a random direction
   ]
 end
 
