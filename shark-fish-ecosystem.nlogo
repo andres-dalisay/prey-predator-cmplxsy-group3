@@ -602,27 +602,27 @@ stopAt500
 @#$#@#$#@
 ## WHAT IS IT?
 
-(a general understanding of what the model is trying to show or explain)
+A shark-fish ecosystem.
 
 ## HOW IT WORKS
 
-(what rules the agents use to create the overall behavior of the model)
+Sharks eat fish to regenrate energy, fish eat planktons to regenerate energy. Moving depletes an energy. Sharks and fishes have a hcane to reproduce upto a certain number of offsprings. Planktons are regrow per a given number of ticks.
 
 ## HOW TO USE IT
 
-(how to use the model, including a description of each of the items in the Interface tab)
+Use sliders to initilaze properties of the agents and environment.
 
 ## THINGS TO NOTICE
 
-(suggested things for the user to notice while running the model)
+Sharks may go into extinction first. 
 
 ## THINGS TO TRY
 
-(suggested things for the user to try to do (move sliders, switches, etc.) with the model)
+Try to move sliders to balance the ecosystem.
 
 ## EXTENDING THE MODEL
 
-(suggested things to add or change in the Code tab to make the model more complicated, detailed, accurate, etc.)
+Add more agents to complicate the eecosystem. 
 
 ## NETLOGO FEATURES
 
@@ -630,11 +630,11 @@ stopAt500
 
 ## RELATED MODELS
 
-(models in the NetLogo Models Library and elsewhere which are of related interest)
+Wolf Sheep Predation and Flocking models found in NetLogo model library.
 
 ## CREDITS AND REFERENCES
 
-(a reference to the model's URL on the web if it has one, as well as any other necessary credits, citations, and links)
+School of fish behavior is inspired from Flocking model. INterface and other code is inpsired from the Wolf Sheep Predation model. Both models can be found in the NetLogo model library.
 @#$#@#$#@
 default
 true
