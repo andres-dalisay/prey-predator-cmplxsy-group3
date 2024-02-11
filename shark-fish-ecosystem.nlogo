@@ -55,8 +55,13 @@ to setup
 end
 
 to go
+  if stopAt500 [if ticks >= 500 [stop] ]
   ask fishes [
     fishMove
+  ]
+
+  if stopOnExtinct [
+    if count sharks <= 0 or count fishes <= 0 or count patches with [pcolor = green] <= 0 [stop]
   ]
   sharkMove
   ask patches [ grow-plankton ]
@@ -359,7 +364,7 @@ fishEnergyPerFood
 fishEnergyPerFood
 0
 20
-8.0
+5.0
 1
 1
 NIL
@@ -374,7 +379,7 @@ sharkEnergyPerFood
 sharkEnergyPerFood
 1
 50
-15.0
+30.0
 1
 1
 NIL
@@ -471,31 +476,16 @@ NIL
 HORIZONTAL
 
 SLIDER
-931
-99
-1103
-132
+833
+98
+1005
+131
 planktonRegrowRate
 planktonRegrowRate
 0
 100
 30.0
 5
-1
-NIL
-HORIZONTAL
-
-SLIDER
-933
-142
-1106
-175
-planktonInitPopulation
-planktonInitPopulation
-0
-100
-100.0
-1
 1
 NIL
 HORIZONTAL
@@ -586,6 +576,28 @@ count fishes
 1
 1
 12
+
+SWITCH
+410
+529
+556
+562
+stopOnExtinct
+stopOnExtinct
+0
+1
+-1000
+
+SWITCH
+587
+538
+710
+571
+stopAt500
+stopAt500
+1
+1
+-1000
 
 @#$#@#$#@
 ## WHAT IS IT?
