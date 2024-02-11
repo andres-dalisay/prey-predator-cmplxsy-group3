@@ -269,7 +269,7 @@ sharkInitPopulation
 sharkInitPopulation
 0
 100
-50.0
+100.0
 1
 1
 NIL
@@ -419,7 +419,7 @@ fishMaxEnergy
 fishMaxEnergy
 1
 50
-25.0
+20.0
 1
 1
 NIL
@@ -535,10 +535,10 @@ NIL
 1
 
 PLOT
-82
-438
-282
-588
+46
+423
+246
+573
 population
 time
 pop.
@@ -552,6 +552,17 @@ false
 PENS
 "fish" 1.0 0 -955883 true "" "plot count fishes"
 "sharks" 1.0 0 -7500403 true "" "plot count sharks"
+
+MONITOR
+271
+424
+399
+473
+plankton population
+count patches with [pcolor = green]
+1
+1
+12
 
 @#$#@#$#@
 ## WHAT IS IT?
